@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notes to MCQ Generator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📚 Notes to MCQ Generator</h1>
+            <p>Convert your study notes into practice quizzes powered by AI</p>
+        </header>
+
+        <main>
+            <!-- Upload Section -->
+            <section class="upload-section">
+                <h2>Step 1: Upload Your Notes</h2>
+                <div class="upload-area" id="uploadArea">
+                    <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="17 8 12 3 7 8"></polyline>
+                        <line x1="12" y1="3" x2="12" y2="15"></line>
+                    </svg>
+                    <h3>Drag and drop your file here</h3>
+                    <p>or</p>
+                    <input type="file" id="fileInput" accept=".txt,.pdf,.png,.jpg,.jpeg" hidden>
+                    <button class="btn btn-secondary" onclick="document.getElementById('fileInput').click()">
+                        Choose File
+                    </button>
+                    <p class="file-info">Supported formats: TXT, PDF, PNG, JPG, JPEG (Max 50MB)</p>
+                </div>
+            </section>
+
+            <!-- Text Preview Section -->
+            <section class="preview-section" id="previewSection" style="display: none;">
+                <h2>Step 2: Review Extracted Text</h2>
+                <div class="text-preview">
+                    <textarea id="notesText" placeholder="Extracted text will appear here..."></textarea>
+                </div>
+                <div class="preview-actions">
+                    <button class="btn btn-primary" onclick="generateMCQs()">Generate MCQs</button>
+                    <button class="btn btn-secondary" onclick="resetAll()">Upload Another File</button>
+                </div>
+            </section>
+
+            <!-- MCQ Generation Section -->
+            <section class="mcq-section" id="mcqSection" style="display: none;">
+                <h2>Step 3: Generated MCQs</h2>
+                <div class="mcq-controls">
+                    <label for="numQuestions">Number of Questions:</label>
+                    <input type="number" id="numQuestions" min="1" max="20" value="5">
+                </div>
+                <div id="mcqContainer" class="mcq-container"></div>
+                <div class="mcq-actions">
+                    <button class="btn btn-primary" onclick="downloadQuiz('pdf')">📥 Download as PDF</button>
+                    <button class="btn btn-secondary" onclick="downloadQuiz('text')">📥 Download as Text</button>
+                </div>
+            </section>
+
+            <!-- Loading Spinner -->
+            <div id="loadingSpinner" class="loading-spinner" style="display: none;">
+                <div class="spinner"></div>
+                <p>Processing your request...</p>
+            </div>
+
+            <!-- Error Message -->
+            <div id="errorMessage" class="error-message" style="display: none;"></div>
+        </main>
+
+        <footer>
+            <p>Built with ❤️ for hackathon learners | Powered by AI</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
